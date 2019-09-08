@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>io.jpress</groupId>
+        <artifactId>parent</artifactId>
+        <version>2.0</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>io.jpress</groupId>
+    <artifactId>starter-tomcat</artifactId>
+    <packaging>war</packaging>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>io.jboot</groupId>
+            <artifactId>jboot</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>javax.servlet</groupId>
+                    <artifactId>javax.servlet-api</artifactId>
+                </exclusion>
+
+                <exclusion>
+                    <groupId>com.jfinal</groupId>
+                    <artifactId>jfinal-undertow</artifactId>
+                </exclusion>
+
+                <exclusion>
+                    <groupId>io.undertow</groupId>
+                    <artifactId>undertow-core</artifactId>
+                </exclusion>
+
+                <exclusion>
+                    <groupId>io.undertow</groupId>
+                    <artifactId>undertow-servlet</artifactId>
+                </exclusion>
+
+                <exclusion>
+                    <groupId>io.undertow</groupId>
+                    <artifactId>undertow-websockets-jsr</artifactId>
+                </exclusion>
+
+                <exclusion>
+                    <groupId>javax.servlet</groupId>
+                    <artifactId>javax.servlet-api</artifactId>
+                </exclusion>
+
+                <exclusion>
+                    <groupId>io.dropwizard.metrics</groupId>
+                    <artifactId>metrics-servlets</artifactId>
+                </exclusion>
+
+                <exclusion>
+                    <groupId>com.alibaba</groupId>
+                    <artifactId>dubbo</artifactId>
+                </exclusion>
+
+                <exclusion>
+                    <groupId>org.apache.curator</groupId>
+                    <artifactId>curator-framework</artifactId>
+                </exclusion>
+
+                <exclusion>
+                    <groupId>io.opentracing.brave</groupId>
+                    <artifactId>brave-opentracing</artifactId>
+                </exclusion>
+
+                <exclusion>
+                    <groupId>io.zipkin.reporter2</groupId>
+                    <artifactId>zipkin-sender-urlconnection</artifactId>
+                </exclusion>
+
+                <exclusion>
+                    <groupId>io.swagger</groupId>
+                    <artifactId>swagger-core</artifactId>
+                </exclusion>
+
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>io.jpress</groupId>
+            <artifactId>jpress-web</artifactId>
+            <version>2.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.jpress</groupId>
+            <artifactId>jpress-template</artifactId>
+            <version>2.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.jpress</groupId>
+            <artifactId>jpress-service-provider</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>io.jpress</groupId>
+            <artifactId>module-page-web</artifactId>
+            <version>2.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.jpress</groupId>
+            <artifactId>module-article-web</artifactId>
+            <version>2.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.jpress</groupId>
+            <artifactId>module-article-service-provider</artifactId>
+            <version>2.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.jpress</groupId>
+            <artifactId>module-page-service-provider</artifactId>
+            <version>2.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.1.0</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+            <version>1.2.3</version>
+        </dependency>
+
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.2.3</version>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>false</filtering>
+                <includes>
+                    <include>**/*.*</include>
+                </includes>
+                <excludes>
+                    <exclude>jboot.properties</exclude>
+                    <exclude>install.lock</exclude>
+                </excludes>
+            </resource>
+        </resources>
+
+        <plugins>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <encoding>UTF-8</encoding>
+                    <compilerArgument>-parameters</compilerArgument>
+                </configuration>
+            </plugin>
+
+
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy-resources</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/${project.build.finalName}</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>${basedir}/../jpress-web/src/main/webapp</directory>
+                                </resource>
+                                <resource>
+                                    <directory>${basedir}/../jpress-template/src/main/webapp</directory>
+                                </resource>
+                                <resource>
+                                    <directory>${basedir}/../module-page/module-page-web/src/main/webapp</directory>
+                                </resource>
+                                <resource>
+                                    <directory>${basedir}/../module-article/module-article-web/src/main/webapp
+                                    </directory>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <configuration>
+                    <attachClasses>true</attachClasses>
+                    <packagingExcludes>WEB-INF/web.xml</packagingExcludes>
+                </configuration>
+            </plugin>
+
+        </plugins>
+
+
+    </build>
+
+
+</project>
